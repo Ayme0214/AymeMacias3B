@@ -1,1 +1,201 @@
+using System;
+using Trabajo2.Clases;
 
+namespace Trabajo2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Pila pila = new Pila();
+
+            Console.WriteLine("PILA");
+
+            pila.APILAR(9);
+            pila.APILAR(1);
+            pila.APILAR(8);
+            pila.DESAPILAR();
+            pila.APILAR(9);
+            pila.APILAR(6);
+            pila.DESAPILAR();
+            pila.DESAPILAR();
+            pila.APILAR(3);
+            pila.APILAR(5);
+
+            Console.WriteLine(pila.EMPTY());
+
+            for (int i = 10; i > -1; i--)
+            {
+                Console.WriteLine(pila.Dato[i]);
+            }
+
+            Console.WriteLine("La Cima de la pila es: " + pila.TOP() + "\n");
+
+            Console.WriteLine("COLA");
+            Cola cola = new Cola();
+            cola.INGRESAR(3);
+            cola.INGRESAR(10);
+            cola.INGRESAR(4);
+            cola.INGRESAR(23);
+            cola.ELIMINAR();
+            cola.INGRESAR(1);
+            cola.INGRESAR(4);
+            cola.INGRESAR(9);
+            cola.ELIMINAR();
+            cola.INGRESAR(34);
+
+            Console.WriteLine(cola.EMPTY());
+
+            for (int i = cola.Inicio; i < cola.Final; i++)
+            {
+                Console.WriteLine(cola.Dato[i]);
+            }
+            Console.ReadKey();  
+        }
+    }
+}
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Trabajo2.Clases
+{
+   public class Pila
+    {
+        int[] variable = new int[5];
+        public int[] Dato
+        {
+            get { return variable; }
+            set { variable = value; }
+        }
+
+
+        private int cima = -1;
+        private int Cima
+        {
+            get { return cima; }
+            set { cima = value; }
+        }
+
+
+        public void APILAR(int número)
+        {
+            if (Cima < (Dato.Length - 1))
+            {
+                Cima++;
+                Dato[Cima] = número;
+            }
+            else throw new Exception("La pila está llena");
+        }
+
+        public void DESAPILAR()
+        {
+            if (Cima == -1)
+            {
+                throw new Exception("La pila está vacía");
+            }
+            else
+            {
+                Cima--;
+            }
+        }
+
+        public String EMPTY()
+        {
+            if (Cima == -1)
+            {
+                return "La pila está vacía";
+            }
+            else
+            {
+                return "La pila tiene datos";
+            }
+        }
+
+        public int TOP()
+        {
+            return Dato[Cima];
+        }
+    }
+}
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Trabajo2.Clases
+{
+    class Cola
+    {
+        int[] dato = new int[5];
+        public int[] Dato
+        {
+            get { return dato; }
+            set { dato = value; }
+        }
+
+        private int final = -1;
+        public int Final
+        {
+            get { return final; }
+            set { final = value; }
+        }
+
+        private int inicio = -1;
+        public int Inicio
+        {
+            get { return inicio; }
+            set { inicio = value; }
+        }
+
+        public void INGRESAR(int num)
+        {
+            if (Final < (Dato.Length - 1))
+            {
+                Final++;
+                Dato[Final] = num;
+            }
+            else
+            {
+                throw new Exception("La cola está llena");
+            }
+        }
+
+        public void ELIMINAR()
+        {
+            if (Final == -1 && Inicio == -1)
+                throw new Exception("La cola está vacia");
+            else
+            {
+                if (Inicio == Final)
+                {
+                    Inicio = -1;
+                    Final = -1;
+                }
+                else
+                {
+                    Inicio++;
+                }
+            }
+        }
+
+        public String EMPTY()
+        {
+            if (Final == -1 && Inicio == -1)
+            {
+                return "La cola está vacía";
+            }
+            else
+            {
+                return "La cola tiene datos";
+            }
+        }
+    }
+}
